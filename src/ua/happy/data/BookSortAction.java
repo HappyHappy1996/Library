@@ -8,22 +8,15 @@ import ua.happy.data.comparators.NameComparator;
 public class BookSortAction {
 
 	public static void bubbleSort(Book[] array) {
+		boolean duplicatesExist = false;
+		int duplicatesBeginIndex = 0;
 		for (int i = 0; i < array.length - 1; i++) {
 			boolean isSorted = true;
 			for (int j = 0; j < array.length - i - 1; j++) {
 				int compareResult = array[j].compareTo(array[j + 1]);
 				if (compareResult == 0) {
-					int basisBeginIndex = j;
-					int basisEndIndex = j + 1;
-					for (int k = basisEndIndex + 1; k < array.length; k++) {
-						if (array[basisBeginIndex].compareTo(array[k]) != 0) {
-							break;
-						} 
-						basisEndIndex++;
-					}
-					bubbleSort(array, basisBeginIndex, basisEndIndex + 1, new AuthorNameComparator());
-					j = basisEndIndex;
-					continue;
+					duplicatesExist = true;
+					duplicatesBeginIndex = j;
 				}
 				if (compareResult > 0) {
 					Book temp = array[j + 1];
@@ -35,6 +28,9 @@ public class BookSortAction {
 			if (isSorted) {
 				break;
 			}
+		}
+		if (duplicatesExist) {
+			bubbleSort(array, duplicatesBeginIndex, array.length, new AuthorNameComparator());
 		}
 	}
 	
