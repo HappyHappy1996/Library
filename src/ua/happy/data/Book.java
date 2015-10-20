@@ -27,4 +27,10 @@ public class Book implements Comparable<Book> {
 		return publishDate.compareTo(o.publishDate);
 	}
 
+	@Override
+	public String toString() {
+		return "Book [name=" + name + ", authorName=" + authorName
+				+ ", publishDate=" + publishDate.getYear() + "]";
+	}
+	
 }
