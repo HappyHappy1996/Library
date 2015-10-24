@@ -2,6 +2,9 @@ package ua.happy.data;
 
 import java.util.Date;
 
+import ua.happy.data.comparators.AuthorNameComparator;
+import ua.happy.data.comparators.NameComparator;
+
 public class Book implements Comparable<Book> {
 
 	private String name;
@@ -24,9 +27,20 @@ public class Book implements Comparable<Book> {
 
 	@Override
 	public int compareTo(Book o) {
-		return publishDate.compareTo(o.publishDate);
+		int result;
+		result = publishDate.compareTo(o.publishDate);
+		if (result == 0) {
+			result = new AuthorNameComparator().compare(this, o);
+		}
+		if (result == 0) {
+			result = new NameComparator().compare(this, o);
+		}
+		return result;
 	}
 
+	/*
+	 * использовал для тестирования
+	 */
 	@Override
 	public String toString() {
 		return "Book [name=" + name + ", authorName=" + authorName
